@@ -1,2 +1,5 @@
 # Ignored filetypes
 *.[nvz]64
+*.exe
+*.elf
+*.o
