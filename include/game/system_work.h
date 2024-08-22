@@ -190,20 +190,21 @@ typedef struct {
 extern system_work sys;
 
 // Controller macros
+#define GET_CONTROLLER(controller_id) sys.controllers[(controller_id)]
 #define CONT_BTNS_HELD(controller_id, buttons)                                                     \
-    BITS_HAS(sys.controllers[(controller_id)].buttons_held, (buttons))
+    BITS_HAS(GET_CONTROLLER(controller_id).buttons_held, (buttons))
 #define CONT_BTNS_PRESSED(controller_id, buttons)                                                  \
-    BITS_HAS(sys.controllers[(controller_id)].buttons_pressed, (buttons))
+    BITS_HAS(GET_CONTROLLER(controller_id).buttons_pressed, (buttons))
 #define CONT_ALL_BTNS_HELD(buttons)                                                                \
     BITS_HAS(                                                                                      \
-        ((sys.controllers[0].buttons_held) | (sys.controllers[1].buttons_held) |                   \
-         (sys.controllers[2].buttons_held) | (sys.controllers[3].buttons_held)),                   \
+        ((GET_CONTROLLER(0).buttons_held) | (GET_CONTROLLER(1).buttons_held) |                     \
+         (GET_CONTROLLER(2).buttons_held) | (GET_CONTROLLER(3).buttons_held)),                     \
         (buttons)                                                                                  \
     )
 #define CONT_ALL_BTNS_PRESSED(buttons)                                                             \
     BITS_HAS(                                                                                      \
-        ((sys.controllers[0].buttons_pressed) | (sys.controllers[1].buttons_pressed) |             \
-         (sys.controllers[2].buttons_pressed) | (sys.controllers[3].buttons_pressed)),             \
+        ((GET_CONTROLLER(0).buttons_pressed) | (GET_CONTROLLER(1).buttons_pressed) |               \
+         (GET_CONTROLLER(2).buttons_pressed) | (GET_CONTROLLER(3).buttons_pressed)),               \
         (buttons)                                                                                  \
     )
 
