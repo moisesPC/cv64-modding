@@ -11,6 +11,21 @@ typedef u16 UNK16;
 typedef s32 UNK32;
 typedef void* UNKPTR;
 
+// Yoinked from: https://github.com/RenaKunisaki/mk64-practice-rom/blob/master/hooks/hooks.c
+#define MAKE_JAL(addr) (0x0C000000 | ((((u32)addr) & 0x007FFFFF) >> 2))
+#define DECODE_JAL(op) ((((op) & ((1 << 26) - 1)) << 2) | 0x80000000)
+
+u32 hookJal(u32 addr, void *func) {
+    u32 oldOp = *(u32*) addr;
+    *(u32*) addr = MAKE_JAL(func);
+    return DECODE_JAL(oldOp);
+}
+
+int hookAddress(u32 addr, void *func, int before) {
+    u32 *ops = (u32*) addr;
+    u32 oldInstr[] = {ops[0], ops[1]}; //save original instructions
+}
+
 #define CV64_BIT(num) (1 << (num))
 /**
  * Apply `mask` on top of `value`.
