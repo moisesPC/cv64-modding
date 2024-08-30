@@ -3073,8 +3073,8 @@
 .definelabel func_8002BB9C_2C79C, 0x8002bb9c
 .definelabel func_8002BBC4_2C7C4, 0x8002bbc4
 .definelabel func_8002BBEC_2C7EC, 0x8002bbec
-.definelabel PlayerMgr_calcJumpUp, 0x8002be5c
-.definelabel PlayerMgr_calcJumpDown, 0x8002be84
+.definelabel Player_jump_fastMove_up, 0x8002be5c
+.definelabel Player_jump_fastMove_down, 0x8002be84
 .definelabel func_8002BEAC_2CAAC, 0x8002beac
 .definelabel func_8002C0A8_2CCA8, 0x8002c0a8
 .definelabel func_8002C154_2CD54, 0x8002c154
