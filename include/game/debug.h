@@ -13,16 +13,17 @@ typedef enum dbg_processmeter_state {
     END_BLUE_BAR
 } dbg_processmeter_state_t;
 
-void func_80019BC0_1A7C0();
-void func_80019BC8_1A7C8(s32);
-void func_80019BD0_1A7D0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_80019BE4_1A7E4(s32, s32, s32, s32);
-void func_80019BF8_1A7F8();
-void processMeter_updateTiming(OSMesgQueue*);
-void processMeter_setSizeDivisor(f32 size_divisor);
-extern void processMeter_update(s32 state);
-extern void processMeter_render(Gfx** dlist);
-void processMeter_renderDivisions(Gfx** dlist, f32 division_width);
-void processMeter_renderBar(Gfx** dlist, u32 color, f32 bar_size, s32 row);
+extern void func_80019BC0_1A7C0();
+extern void func_80019BC8_1A7C8(s32);
+extern void func_80019BD0_1A7D0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern void func_80019BE4_1A7E4(s32, s32, s32, s32);
+extern void func_80019BF8_1A7F8();
+extern void processMeter_updateTiming(OSMesgQueue*);
+extern void processMeter_setSizeDivisor(f32 size_divisor);
+extern extern void processMeter_update(s32 state);
+extern extern void processMeter_render(Gfx** dlist);
+extern void processMeter_renderDivisions(Gfx** dlist, f32 division_width);
+extern void processMeter_renderBar(Gfx** dlist, u32 color, f32 bar_size, s32 row);
+extern void crashScreen_Init();
 
 #endif

@@ -6,7 +6,9 @@
 // Called once, right after the custom segment is loaded during bootup
 // Extra initilisation code can go here
 void hook_customSegmentInit() {
-    
+    // Optional: Initialize the crash screen thread to be able
+    // to see debug output to the console when the game crashes
+    crashScreen_Init();
 }
 
 // Called every frame at 60FPS

@@ -21,11 +21,6 @@ u32 hookJal(u32 addr, void *func) {
     return DECODE_JAL(oldOp);
 }
 
-int hookAddress(u32 addr, void *func, int before) {
-    u32 *ops = (u32*) addr;
-    u32 oldInstr[] = {ops[0], ops[1]}; //save original instructions
-}
-
 #define CV64_BIT(num) (1 << (num))
 /**
  * Apply `mask` on top of `value`.
@@ -114,6 +109,7 @@ s32 func_8001A250_1AE50(s32* arg0, u16* arg1, s16 arg2);
 extern void func_80066400(s32);
 extern void* NisitenmaIchigoFiles_segmentToVirtual(u32 segment_address, s32 file_ID);
 extern void controller_readData();
+extern void map_initPositionSettings();
 
 #define NPTR             0
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0])) // Get number of elements in the array

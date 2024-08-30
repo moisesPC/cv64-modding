@@ -47,11 +47,16 @@ extern void enemyTargetGfx_hidden(enemyTargetGfx* self);
 
 typedef void (*enemyTargetGfx_func_t)(enemyTargetGfx*);
 
+extern enemyTargetGfx_func_t enemyTargetGfx_functions[];
+extern s32 enemyTargetGfx_hierarchy;
+
 typedef enum enemyTargetGfx_func_id {
     ENEMYTARGETGFX_INIT,
     ENEMYTARGETGFX_ON_TARGET,
     FUNC_800260F8,
     ENEMYTARGETGFX_HIDDEN
 } enemyTargetGfx_func_id_t;
+
+extern enemyTargetGfx* ptr_enemyTargetGfx;
 
 #endif

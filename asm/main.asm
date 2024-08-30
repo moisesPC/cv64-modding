@@ -1,5 +1,5 @@
-.include "asm/extern.asm"
-.include "asm/sections.asm"
+.include "../asm/extern.asm"
+.include "../asm/sections.asm"
 
 /******************** Custom segment loader ********************/
 
@@ -51,7 +51,14 @@ load_custom_segment:
 // Import the custom segment with all code and data compiled from src/sec_custom
 // into the ROM
 
-.importlib "build/sec_custom.a"
+.importlib "../build/build/sec_custom.a"
 .align 4
 
 .endarea // SEC_CUSTOM_SIZE
+
+/******************** Character on-the-fly swap ********************/
+
+.headersize SEC_MAIN_HEADERSIZE
+
+.org 0x8000EDC4
+    j 0x8000EDD8

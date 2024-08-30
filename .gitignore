@@ -9,3 +9,4 @@ tools/armips/*
 !tools/armips/.gitkeep
 tools/n64chain/*
 !tools/n64chain/.gitkeep
+build/*
