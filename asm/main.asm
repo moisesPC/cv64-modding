@@ -55,10 +55,3 @@ load_custom_segment:
 .align 4
 
 .endarea // SEC_CUSTOM_SIZE
-
-/******************** Character on-the-fly swap ********************/
-
-.headersize SEC_MAIN_HEADERSIZE
-
-.org 0x8000EDC4
-    j 0x8000EDD8

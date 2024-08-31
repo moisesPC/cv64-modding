@@ -10671,7 +10671,6 @@
 .definelabel D_80387AC4, 0x80387ac4
 .definelabel D_80387AC6, 0x80387ac6
 .definelabel map_fog_color, 0x80387ac8
-.definelabel setupPart1Completed, 0x800d7b54
 .definelabel D_80387ACC, 0x80387acc
 .definelabel D_80387ACE, 0x80387ace
 .definelabel code_execution_max_delay, 0x80387ad0
@@ -11456,6 +11455,5 @@
 .definelabel _binary__home_a_cv64_assets_sequences_bin_end, 0x808e66a0
 .definelabel sequences_DATA_END, 0x808e66a0
 .definelabel sequences_VRAM_END, 0x808e66a0
-.definelabel old_pos, 0x8018ae80
 
 .endif // _EXTERN_ASM_

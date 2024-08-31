@@ -123,7 +123,7 @@ typedef struct {
     Player* ptr_PlayerObject;
     interactuables* actor_player_is_currently_interacting_with;
     u32 pull_lever;
-    Player* ptr_SecondPlayerObject;
+    u8 field50_0x26230[4];
     s16 current_PowerUp_level;
     u8 alternate_costume;
     u8 in_first_person_mode;

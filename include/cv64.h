@@ -21,6 +21,11 @@ u32 hookJal(u32 addr, void *func) {
     return DECODE_JAL(oldOp);
 }
 
+int hookAddress(u32 addr, void *func, int before) {
+    u32 *ops = (u32*) addr;
+    u32 oldInstr[] = {ops[0], ops[1]}; // Save original instructions
+}
+
 #define CV64_BIT(num) (1 << (num))
 /**
  * Apply `mask` on top of `value`.
