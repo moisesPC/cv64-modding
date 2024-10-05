@@ -1,7 +1,13 @@
 #include <cv64.h>
 
 #include "objects/player/player.h"
+#include "objects/engine/GameStateMgr.h"
 #include "system_work.h"
+
+// Returns `TRUE` if all gameplay state subsystems have been initialized
+s32 insideGameplay() {
+    return ((ptr_PlayerData != NULL) && (sys.map_is_setup) && (ptr_GameStateMgr->current_game_state == GAMESTATE_GAMEPLAY));
+}
 
 // Called once, right after the custom segment is loaded during bootup
 // Extra initilisation code can go here
@@ -14,7 +20,7 @@ void hook_customSegmentInit() {
 // Called every frame at 60FPS
 void hook_customSegmentLoop() {
     /* Hold L to levitate */
-    if ((ptr_PlayerData != NULL) && sys.map_is_setup) {
+    if (insideGameplay()) {
         if (CONT_BTNS_HELD(CONT_0, L_TRIG)) {
             sys.ptr_PlayerObject->header.current_function[0].function = PLAYER_JUMP;
             sys.ptr_PlayerObject->header.current_function[1].function = 7;   // Calls `Player_jump_fastMove_down`
