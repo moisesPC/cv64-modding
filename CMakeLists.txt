@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(cv64_modding)
 
-# Set directories
+# Directories
 set(SRC_DIR src)
 set(ASM_DIR asm)
 set(BUILD_DIR build)
@@ -10,7 +10,7 @@ set(ASM_N64_WRAP ${BUILD_DIR}/armips_n64_wrapper.asm)
 set(ROM_IN cv64.z64)
 set(ROM_OUT cv64_mod.z64)
 
-# Set tools
+# Tools
 set(CMAKE_C_COMPILER ${CMAKE_SOURCE_DIR}/tools/n64chain/bin/mips64-elf-gcc)
 set(CMAKE_AR ${CMAKE_SOURCE_DIR}/tools/n64chain/bin/mips64-elf-ar)
 set(AS ${CMAKE_SOURCE_DIR}/tools/armips/armips)
@@ -21,9 +21,9 @@ set(PYTHON python3)
 include_directories(include include/ultra64 include/game)
 
 # Compiler flags
-set(CMAKE_C_FLAGS "-Wall -O3 -mtune=vr4300 -march=vr4300 -mabi=32 -fomit-frame-pointer -G0 -Wno-comment")
+set(CMAKE_C_FLAGS "-Wall -O3 -mtune=vr4300 -march=vr4300 -mabi=32 -fomit-frame-pointer -G0 -Wno-comment -DF3DEX_GBI_2 -D_LANGUAGE_C")
 
-# Locate all .c files within SEC_CUSTOM_SRC_DIR
+# C files for the custom segment
 file(GLOB_RECURSE SEC_CUSTOM_C_FILES ${SEC_CUSTOM_SRC_DIR}/*.c)
 
 # Create object files
