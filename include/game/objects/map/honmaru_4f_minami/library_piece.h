@@ -9,9 +9,9 @@
 
 // ID 0x01D6
 typedef struct {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u8 field_0x20[4];
-    cv64_model_inf_t* model;
+    Model* model;
     u8 field_0x28[12];
     actorPositionalData positionalData;
     u8 field_0x46[2];
@@ -26,7 +26,7 @@ typedef struct {
      * function `cutscene_setActorStateIfMatchingVariable1`
      */
     s32 state;
-    cv64_actor_settings_t* settings;
+    ActorConfig* settings;
 } libraryPiece;
 
 void libraryPiece_entrypoint(libraryPiece* self);

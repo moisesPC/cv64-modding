@@ -6,11 +6,11 @@
 
 // ID: 0x2021
 typedef struct cv64_ovl_mandragoratxt {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u8 field_0x20[20];
     s32 text_ID;
     u8 field_0x38[4];
-    u32 interacting_with_interactuable;
+    u32 interacting_with_interactable;
     u32 textbox_is_active;
     u8 field_0x44[8];
     s32 nitro_amount_until_max_capacity;
@@ -19,8 +19,8 @@ typedef struct cv64_ovl_mandragoratxt {
     f32 trigger_size_X;
     f32 trigger_size_Z;
     mfds_state* message_textbox;
-    vec3f position;
-    cv64_actor_settings_t* settings;
+    Vec3f position;
+    ActorConfig* settings;
 } cv64_ovl_mandragoratxt_t;
 
 void cv64_ovl_mandragoratxt_entrypoint(cv64_ovl_mandragoratxt_t* self);

@@ -9,11 +9,11 @@
 
 // ID: 0x2024
 typedef struct cv64_ovl_explwalltxt {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u8 field_0x20[20];
     u32 state;
     u8 field_0x38[4];
-    u32 interacting_with_interactuable;
+    u32 interacting_with_interactable;
     u32 textbox_is_active;
     s8 set_nitro_text_ID;
     s8 set_mandragora_text_ID;
@@ -30,8 +30,8 @@ typedef struct cv64_ovl_explwalltxt {
     f32 trigger_size_X;
     f32 trigger_size_Z;
     mfds_state* message_textbox;
-    vec3f position;
-    cv64_actor_settings_t* settings;
+    Vec3f position;
+    ActorConfig* settings;
 } cv64_ovl_explwalltxt_t;
 
 void cv64_ovl_explwalltxt_entrypoint(cv64_ovl_explwalltxt_t* self);

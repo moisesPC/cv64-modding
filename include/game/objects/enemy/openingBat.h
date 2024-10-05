@@ -7,7 +7,7 @@
 
 typedef struct {
     u8 field_0x00[8];
-    cv64_model_inf_t* model;
+    Model* model;
     modelLighting* lighting;
     animationMgr* animMgr;
 } openingBatDataInner;
@@ -20,12 +20,12 @@ typedef struct {
 
 // ID: 0x20A6
 typedef struct {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u8 field_0x20[4];
-    cv64_model_inf_t* model;
+    Model* model;
     openingBatData* data;
     u8 field_0x2C[68];
-    cv64_actor_settings_t* settings;
+    ActorConfig* settings;
 } openingBat;
 
 void openingBat_entrypoint(openingBat* self);

@@ -5,7 +5,7 @@
 
 #include "cv64.h"
 #include "gfx/camera.h"
-#include "gfx/model_info.h"
+#include "gfx/model.h"
 #include "objects/menu/lens.h"
 #include "objects/menu/textboxAdvanceArrow.h"
 #include "window.h"
@@ -38,24 +38,24 @@
 #define TEXTBOX_OPTION_NO   2
 
 typedef enum cv64_textbox_flag {
-    MENU_TEXT_ID_PRINTS_ITEM        = CV64_BIT(0),
-    MENU_TEXT_ID_PRINTS_MENU_STRING = CV64_BIT(1),
-    MFDS_FLAG_00000004              = CV64_BIT(2),
-    MFDS_FLAG_00000008              = CV64_BIT(3),
-    PRINT_NUMBER                    = CV64_BIT(4),
-    DISPLAY_LENS                    = CV64_BIT(6),      // Aka enable window_work
-    ALLOC_TEXTBOX_IN_MENU_DATA_HEAP = CV64_BIT(14),
-    SLOW_TEXT_TRANSITION            = CV64_BIT(20),
-    FAST_TEXT_TRANSITION            = CV64_BIT(21),
-    MFDS_FLAG_400000                = CV64_BIT(22),
-    UPDATE_STRING                   = CV64_BIT(24),
-    MFDS_FLAG_2000000               = CV64_BIT(25),
-    CLOSE_TEXTBOX                   = CV64_BIT(26),
-    OPEN_TEXTBOX                    = CV64_BIT(27),
-    CLOSE_LENS                      = CV64_BIT(28),
-    MFDS_FLAG_20000000              = CV64_BIT(29),
-    TEXT_IS_PARSED                  = CV64_BIT(30),     // The text is completely processed
-    HIDE_TEXTBOX                    = CV64_BIT(31)
+    MENU_TEXT_ID_PRINTS_ITEM        = BIT(0),
+    MENU_TEXT_ID_PRINTS_MENU_STRING = BIT(1),
+    MFDS_FLAG_00000004              = BIT(2),
+    MFDS_FLAG_00000008              = BIT(3),
+    PRINT_NUMBER                    = BIT(4),
+    DISPLAY_LENS                    = BIT(6),      // Aka enable window_work
+    ALLOC_TEXTBOX_IN_MENU_DATA_HEAP = BIT(14),
+    SLOW_TEXT_TRANSITION            = BIT(20),
+    FAST_TEXT_TRANSITION            = BIT(21),
+    MFDS_FLAG_400000                = BIT(22),
+    UPDATE_STRING                   = BIT(24),
+    MFDS_FLAG_2000000               = BIT(25),
+    CLOSE_TEXTBOX                   = BIT(26),
+    OPEN_TEXTBOX                    = BIT(27),
+    CLOSE_LENS                      = BIT(28),
+    MFDS_FLAG_20000000              = BIT(29),
+    TEXT_IS_PARSED                  = BIT(30),     // The text is completely processed
+    HIDE_TEXTBOX                    = BIT(31)
 } cv64_textbox_flag_t;
 
 // clang-format on
@@ -86,8 +86,8 @@ typedef struct {
     s16 field_0x0E;
     u8 flags;
     u8 field_0x11;
-    vec2s position;
-    vec2s field_0x16;
+    Vec2 position;
+    Vec2 field_0x16;
     u8 field_0x1A;
     u8 num_options;
     u8 current_option;
@@ -121,13 +121,13 @@ typedef struct {
 
 typedef struct {
     u32 flags;
-    camera* display_camera;
+    Camera* display_camera;
     u16* text; // Officially called "str1"
     u16* item_amount_text;
     s32 field_0x10;
-    vec2s position;
+    Vec2 position;
     f32 position_Z;
-    vec2f scale;
+    Vec2f scale;
     s32 number;
     s32 field_0x28;
     u16 width;
@@ -156,11 +156,11 @@ typedef struct {
 // ID: 0x0127
 // Real name: obj_mfds
 typedef struct {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u16 field_0x20;
     u16 field_0x22;
     u8 field_0x24[4];
-    cv64_model_inf_t* model;
+    Model* model;
     u8 field_0x2C[8];
     Gfx** mfds_double;
     void* field_0x38;
@@ -183,9 +183,9 @@ typedef struct {
     mfds_state* state;
 } obj_mfds;
 
-extern mfds_state* textbox_create(void* parent_object, camera* display_camera, u32 flags);
+extern mfds_state* textbox_create(void* parent_object, Camera* display_camera, u32 flags);
 extern void
-textbox_setDimensions(mfds_state* self, s8 height, s16 width, u8 param_4, u8 character_spacing);
+textbox_setDimensions(mfds_state* self, u8 height, u16 width, u8 param_4, u8 character_spacing);
 extern void textbox_setPos(mfds_state* self, u16 x, u16 y, s32 unused);
 extern void
 textbox_setMessagePtr(mfds_state* self, u16* text, u16* item_amount_number_text, s16 number);

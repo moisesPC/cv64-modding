@@ -2,7 +2,7 @@
 #define MARK_H
 
 #include "gfx/camera.h"
-#include "gfx/model_info.h"
+#include "gfx/model.h"
 #include "object.h"
 
 typedef enum mark_work_flags {
@@ -15,11 +15,11 @@ typedef enum mark_work_flags {
 } mark_work_flags;
 
 typedef struct {
-    camera* display_camera;
+    Camera* display_camera;
     u8 flags;
     u8 field_0x05[3];
-    vec3f position;
-    vec3f size;
+    Vec3f position;
+    Vec3f size;
     u8 display_anim_speed;
     u8 display_anim_timer;
     u8 field_0x22[2];
@@ -27,9 +27,9 @@ typedef struct {
 
 // ID: 0x0133
 typedef struct {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u8 field_0x20[4];
-    cv64_model_inf_t* model;
+    Model* model;
     u8 field_0x28[68];
     u32 already_played_sound;
     mark_work* work;
@@ -42,7 +42,7 @@ extern void mark_loop(mark* self);
 extern void mark_destroy(mark* self);
 extern mark_work* markWork_create(
     void* parent,
-    camera* display_camera,
+    Camera* display_camera,
     u8 flags,
     f32 pos_X,
     f32 pos_Y,

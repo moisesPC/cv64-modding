@@ -1,7 +1,7 @@
-#ifndef INTERACTUABLES_H
-#define INTERACTUABLES_H
+#ifndef INTERACTABLES_H
+#define INTERACTABLES_H
 
-#include "gfx/model_info.h"
+#include "gfx/model.h"
 #include "objects/effect/pickableItemFlash.h"
 #include "objects/menu/mfds.h"
 #include "actor.h"
@@ -12,12 +12,12 @@
 
 #define ITEM_FADE_TIMER self->header.timer
 
-#define INTERACTUABLES_SETTINGS_TYPE_ITEM      1
-#define INTERACTUABLES_SETTINGS_TYPE_TEXT_SPOT 2
+#define INTERACTABLES_SETTINGS_TYPE_ITEM      1
+#define INTERACTABLES_SETTINGS_TYPE_TEXT_SPOT 2
 
-// Variable 1: ID + 1 in `interactuables_settings_table` to get the settings from
-#define INTERACTUABLES_SETTINGS_TABLE_ENTRY_ID(id) (id - 1)
-#define INTERACTUABLES_VARIABLE_1(id)              (id + 1) // Used in the `interactuables`'s actor settings
+// Variable 1: ID + 1 in `interactables_settings` to get the settings from
+#define INTERACTABLES_SETTINGS_ENTRY_ID(id) (id - 1)
+#define INTERACTABLES_VARIABLE_1(id)        (id + 1) // Used in the `interactables`'s actor settings
 
 // Variable 2:
 // Items: Upper 2-bytes of the event flag
@@ -34,10 +34,9 @@
 #define TEXT_SPOT_Z_SIZE settings->variable_3
 
 /**
- * This enum contains the indexes corresponding to
- * each entry from `interactuables_settings_table`
+ * Indexes corresponding to the entries from `interactables_settings`
  */
-typedef enum cv64_interactuables_settings_table_id {
+typedef enum InteractableID {
     //// Items ////
     // Visible + Doesn't vanish
     INTERACT_ID_NO_VANISH_WHITE_JEWEL       = 0x00,
@@ -178,36 +177,42 @@ typedef enum cv64_interactuables_settings_table_id {
     INTERACT_ID_TEXT_79                         = 0x79,
     INTERACT_ID_FOREST_LEVER_OPEN_BOSS_DOOR     = 0x7A,
     INTERACT_ID_FORET_LOCKED_FINAL_BOSS_DOOR    = 0x7B,
-    INTERACT_ID_WATERWAY_DOOR_CLOSED            = 0x7C
-} cv64_interactuables_settings_table_id_t;
+    INTERACT_ID_WATERWAY_DOOR_CLOSED            = 0x7C,
+    NUM_INTERACTABLES
+} InteractableID;
 
-typedef enum cv64_interactuables_settings_flag {
-    ITEM_VANISH_OR_UPDATE_POSITION             = 0x0001,
-    TEXT_SPOT_DESTROY_AFTER_INTERACTION        = 0x0002,
-    TEXT_SPOT_DESTROY_IF_EVENT_FLAG_IS_SET     = 0x0004,
-    TEXT_SPOT_DISABLE_IF_EVENT_FLAG_IS_NOT_SET = 0x0008,
+enum InteractableConfigFlag {
+    ITEM_VANISH_OR_UPDATE_POSITION             = BIT(0),
+    TEXT_SPOT_DESTROY_AFTER_INTERACTION        = BIT(1),
+    TEXT_SPOT_DESTROY_IF_EVENT_FLAG_IS_SET     = BIT(2),
+    TEXT_SPOT_DISABLE_IF_EVENT_FLAG_IS_NOT_SET = BIT(3),
     /**
      * Yes / No selection textbox
      */
-    TEXT_SPOT_DO_ACTION_AFTER_SELECTING_OPTION = 0x0010,
-    TEXT_SPOT_IF_YES_START_CUTSCENE            = 0x0020,
-    TEXT_SPOT_IF_YES_CHANGE_ACTOR_STATE        = 0x0040,
-    TEXT_SPOT_IF_YES_SET_EVENT_FLAG            = 0x0080,
+    TEXT_SPOT_DO_ACTION_AFTER_SELECTING_OPTION = BIT(4),
+    TEXT_SPOT_IF_YES_START_CUTSCENE            = BIT(5),
+    TEXT_SPOT_IF_YES_CHANGE_ACTOR_STATE        = BIT(6),
+    TEXT_SPOT_IF_YES_SET_EVENT_FLAG            = BIT(7),
     /**
      * Yes / No selection textbox
      */
-    TEXT_SPOT_IF_YES_PULL_LEVER = 0x0100,
-    ITEM_DOES_NOT_FLASH         = 0x0400,
-    ITEM_INVISIBLE              = 0x0800
-} cv64_interactuables_settings_flag_t;
+    TEXT_SPOT_IF_YES_PULL_LEVER = BIT(8),
+    ITEM_DOES_NOT_FLASH         = BIT(10),
+    ITEM_INVISIBLE              = BIT(11)
+};
 
-typedef struct {
+/**
+ * Accepts values from `InteractableConfigFlag` OR'ed together
+ */
+typedef u16 InteractableConfigFlags;
+
+typedef struct InteractableConfig {
     u16 type;
     union {
         u16 item;
         u16 text_ID;
     };
-    u16 flags;
+    InteractableConfigFlags flags;
     u8 field_0x06[2];
     u32 event_flag;
     union {
@@ -218,21 +223,21 @@ typedef struct {
     u16 actor_variable_1;
     u16 trigger_size;
     u8 field_0x12[2];
-} interactuables_settings;
+} InteractableConfig;
 
 // ID: 0x0027
-typedef struct {
-    cv64_object_hdr_t header;
+typedef struct Interactable {
+    ObjectHeader header;
     u8 field_0x04[4];
-    cv64_model_inf_t* model;
+    Model* model;
     u8 field_0x28[12];
     f32 item_falling_target_height;
     /**
-     * ID in `interactuables_settings_table`
+     * Index into `interactables_settings`. Will be value from `InteractableID`.
      */
-    u16 table_index;
+    u16 idx;
     u8 field_0x3A[2];
-    u32 interacting_with_interactuable;
+    u32 interacting_with_interactable;
     u32 textbox_is_active;
     union {
         u16 item_doesnt_vanish_or_fall;
@@ -242,7 +247,7 @@ typedef struct {
     u16 current_flash_inactive_time;
     u8 field_0x4A[2];
     u32 time_when_flash_appears_over_item;
-    cv64_rgba_t primitive_color;
+    RGBA primitive_color;
     u16 map_event_flag_ID;
     u16 item_model_settings_flags;
     u32 event_flag; // Save event flag that gets set when interacting with the item
@@ -252,30 +257,32 @@ typedef struct {
         pickableItemFlash* flash;
         mfds_state* textbox;
     };
-    vec3f position;
-    cv64_actor_settings_t* settings;
-} interactuables;
+    Vec3f position;
+    ActorConfig* settings;
+} Interactable;
 
-void interactuables_entrypoint(interactuables* self);
-void interactuables_init(interactuables* self);
-void interactuables_main(interactuables* self);
-void interactuables_initCheck(interactuables* self);
-void interactuables_selectTextboxOption(interactuables* self);
-void interactuables_stopCheck(interactuables* self);
-void interactuables_destroy(interactuables* self);
-void interactuables_stopInteraction(interactuables* self);
+void Interactable_Entrypoint(Interactable* self);
+void Interactable_Init(Interactable* self);
+void Interactable_Main(Interactable* self);
+void Interactable_InitCheck(Interactable* self);
+void Interactable_SelectTextboxOption(Interactable* self);
+void Interactable_StopCheck(Interactable* self);
+void Interactable_Destroy(Interactable* self);
 
-typedef enum cv64_interactuables_func_id {
-    INTERACTUABLES_INIT,
-    INTERACTUABLES_MAIN,
-    INTERACTUABLES_INIT_CHECK,
-    INTERACTUABLES_SELECT_TEXTBOX_OPTION,
-    INTERACTUABLES_STOP_CHECK,
-    INTERACTUABLES_DESTROY
-} cv64_interactuables_func_id_t;
+enum InteractableFuncID {
+    INTERACTABLE_INIT,
+    INTERACTABLE_MAIN,
+    INTERACTABLE_INIT_CHECK,
+    INTERACTABLE_SELECT_TEXTBOX_OPTION,
+    INTERACTABLE_STOP_CHECK,
+    INTERACTABLE_DESTROY
+};
 
-typedef void (*cv64_interactuables_func_t)(interactuables*);
+typedef void (*InteractableFunc)(Interactable*);
 
-extern interactuables_settings interactuables_settings_table[125];
+/**
+ * Table mapping interactables to their settings
+ */
+extern InteractableConfig interactables_settings[NUM_INTERACTABLES];
 
 #endif

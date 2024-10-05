@@ -2,7 +2,7 @@
 #define ROSE_VENTILATOR_H
 
 #include "actor.h"
-#include "gfx/model_info.h"
+#include "gfx/model.h"
 
 typedef struct cv64_ovl_rose_ventilator_cfg {
     s32 time_until_changing_max_speed;
@@ -12,13 +12,13 @@ typedef struct cv64_ovl_rose_ventilator_cfg {
 
 // ID: 0x0220
 typedef struct cv64_ovl_rose_ventilator {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u8 field_0x4[4];
-    cv64_model_inf_t* model;
+    Model* model;
     u8 field_0x28[12];
     cv64_ovl_rose_ventilator_cfg_t speed_settings;
     u8 field_0x40[48];
-    cv64_actor_settings_t* settings;
+    ActorConfig* settings;
 } cv64_ovl_rose_ventilator_t;
 
 typedef void (*cv64_ovl_rose_ventilator_func_t)(cv64_ovl_rose_ventilator_t*);

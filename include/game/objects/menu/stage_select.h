@@ -2,7 +2,7 @@
 #define STAGE_SELECT_H
 
 #include "object.h"
-#include "gfx/model_info.h"
+#include "gfx/model.h"
 #include "objects/menu/mfds.h"
 #include "objects/menu/lens.h"
 
@@ -15,7 +15,7 @@
 */
 #define OPTION_SELECTION_TIMER self->header.timer
 
-typedef enum stage_select_option_enum {
+typedef enum StageSelectOption {
     FOREST            = 0,
     INSIDE_OF_RAMPART = 1,
     COURTYARD         = 2,
@@ -24,12 +24,12 @@ typedef enum stage_select_option_enum {
     VS_DEATH          = 5,
     VS_ACTRIESE       = 6,
     VS_BEHIMOS        = 7
-} stage_select_option_enum_t;
+} StageSelectOption;
 
 typedef struct {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u8 field_0x20[8];
-    cv64_model_inf_t* red_background_model;
+    Model* red_background_model;
     u8 field_0x2C[8];
     mfds_state** textboxes;
     u8 field_0x38[24];
@@ -47,16 +47,16 @@ typedef struct {
     f32 lens_move_offset;
     s16 lens_move_vertical_difference;
     u8 field_0x72[2];
-} stageSelect;
+} StageSelect;
 
-typedef void (*cv64_stage_select_func_t)(stageSelect*);
+typedef void (*StageSelectFunc)(StageSelect*);
 
-void stageSelect_entrypoint(stageSelect* self);     // 0x8012A520
-void stageSelect_loadAssetsFile(stageSelect* self); // 0x8012A590
-void stageSelect_initGraphics(stageSelect* self);   // 0x8012A688
-void stageSelect_initLens(stageSelect* self);       // 0x8012A904
-void stageSelect_moveLens(stageSelect* self);       // 0x8012AA60
-void stageSelect_warpToStage(stageSelect* self);    // 0x8012AC04
-void stageSelect_closeTextboxes(stageSelect* self); // 0x8012AEA0
+void StageSelect_entrypoint(StageSelect* self);     // 0x8012A520
+void StageSelect_loadAssetsFile(StageSelect* self); // 0x8012A590
+void StageSelect_initGraphics(StageSelect* self);   // 0x8012A688
+void StageSelect_initLens(StageSelect* self);       // 0x8012A904
+void StageSelect_moveLens(StageSelect* self);       // 0x8012AA60
+void StageSelect_warpToStage(StageSelect* self);    // 0x8012AC04
+void StageSelect_closeTextboxes(StageSelect* self); // 0x8012AEA0
 
 #endif

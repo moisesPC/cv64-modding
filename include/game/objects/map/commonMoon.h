@@ -5,16 +5,16 @@
 
 // ID 0x0173
 typedef struct {
-    cv64_object_hdr_t header;
+    ObjectHeader header;
     u8 field_0x20[4];
-    cv64_model_inf_t* model;
+    Model* model;
     u8 field_0x28[12];
     /**
      * This variable has to be right-shifted with 8 to get the actual transparency value (a `u8`).
      */
     s32 transparency;
     u8 field_0x38[56];
-    cv64_actor_settings_t* settings;
+    ActorConfig* settings;
 } commonMoon;
 
 void commonMoon_entrypoint(commonMoon* self);

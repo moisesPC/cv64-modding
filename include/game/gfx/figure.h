@@ -43,7 +43,7 @@
 #define FIG_VARIABLE_TEXTURE_AND_PALETTE              0x40000000
 #define FIG_APPLY_VARIABLE_TEXTURE_AND_PALETTE(dlist) (FIG_VARIABLE_TEXTURE_AND_PALETTE | (dlist))
 
-typedef struct {
+typedef struct figHeader {
     s16 type;
     u16 flags;
     struct figHeader* prev;
@@ -64,7 +64,8 @@ extern figHeader* fig_allocate(s16 type);
 extern void clearAllFigs();
 extern void figure_showModelAndChildren(figHeader*, u16);
 extern void figure_hideSelfAndChildren(figHeader*, u16);
-extern void* figure_setChild(figHeader* new_child, figHeader* self);
+extern figHeader* figure_setChild(figHeader* new_child, figHeader* self);
+extern figHeader* Figure_SetSibling(figHeader* new_sibling, figHeader* self);
 
 extern figure figures_array[FIG_ARRAY_MAX];
 

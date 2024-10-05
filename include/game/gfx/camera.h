@@ -1,8 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "gfx/figure.h"
 #include "math.h"
-#include <ultra64.h>
 
 typedef struct {
     s16 screen_width;
@@ -47,13 +47,13 @@ typedef union {
     projection_matrix_params_ORTHO* ortho;
 } union_projection_matrix;
 
-typedef struct {
+typedef struct Camera {
     s16 type;
     u16 flags;
-    struct camera* prev;
-    struct camera* sibling;
-    struct camera* next;
-    struct camera* parent;
+    struct Camera* prev;
+    struct Camera* sibling;
+    struct Camera* next;
+    struct Camera* parent;
     u8 field1_0x14;
     u8 field2_0x15;
     u8 field3_0x16;
@@ -88,27 +88,28 @@ typedef struct {
     u8 field32_0x3a;
     u8 field33_0x3b;
     Gfx* clip_ratio_dl;
-    vec3f position;
-    vec3s field36_0x4c;
-    angle_t angle;
-    vec3f look_at_direction;
+    Vec3f position;
+    Vec3 field36_0x4c;
+    Angle angle;
+    Vec3f look_at_direction;
     u8 field39_0x64;
     u8 field40_0x65;
     u8 field41_0x66;
     u8 field42_0x67;
-    Matrix44F matrix;
-} camera;
+    Mat4f matrix;
+} Camera;
 
-extern camera* common_camera_8009B430;
-extern camera* common_camera_8009B434;
-extern camera* common_camera_game_view; // 3D view
-extern camera* common_camera_effects;   // Items, shadows, and some other effects
-extern camera* common_camera_8009B440;  // Normal / Action / Battle / Boss view text
-extern camera* common_camera_8009B444;  // Background elements, like in the pause menu
-extern camera* common_camera_8009B448;  // Used for the scrolls?
-extern camera* common_camera_8009B44C;  // Used for the pause menu scroll?
-extern camera* common_camera_HUD;       // Used for the gameplay HUD and text
+extern Camera* common_camera_8009B430;
+extern Camera* common_camera_8009B434;
+extern Camera* common_camera_game_view; // 3D view
+extern Camera* common_camera_effects;   // Items, shadows, and some other effects
+extern Camera* common_camera_8009B440;  // Normal / Action / Battle / Boss view text
+extern Camera* common_camera_8009B444;  // Background elements, like in the pause menu
+extern Camera* common_camera_8009B448;  // Used for the scrolls?
+extern Camera* common_camera_8009B44C;  // Used for the pause menu scroll?
+extern Camera* common_camera_HUD;       // Used for the gameplay HUD and text
 
-extern void camera_setParams(camera* self, s32 index);
+extern Camera* Camera_Create(u16 type, s32 index);
+extern void Camera_SetParams(Camera* self, s32 index);
 
 #endif

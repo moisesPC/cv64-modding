@@ -10,7 +10,7 @@ typedef struct {
 } struct_48;
 
 typedef struct {
-    cv64_rgba_t color;
+    RGBA color;
     /**
      * X [0]
      * Y [1]
@@ -24,7 +24,7 @@ typedef struct {
 } light_parameters;
 
 // TODO: Figure this out better
-typedef struct {
+typedef struct light {
     s16 type;
     u16 flags;
     struct light* prev;
@@ -43,7 +43,7 @@ typedef struct {
      */
     s32 number_of_lights;
     u8 field6_0x40[40];
-    cv64_rgba_t ambient_color;
+    RGBA ambient_color;
     u8 field_0x6C[3];
     u8 field_0x6F; // See 0x800109B0
     /**
