@@ -11,20 +11,20 @@ typedef struct {
     ObjectHeader header;
     u8 field_0x20[4];
     Model* model;
-    light* arrow_light;
+    FigureLight* arrow_light;
     u8 field_0x2C[12];
     s32 fade_timer;
     u8 field_0x3C[28];
     s32 disable_arrow;
     u8 field_0x5C[24];
-} textboxAdvanceArrow;
+} TextboxAdvanceArrow;
 
-void textboxAdvanceArrow_entrypoint(textboxAdvanceArrow* self);
-void textboxAdvanceArrow_init(textboxAdvanceArrow* self);
-void textboxAdvanceArrow_loop(textboxAdvanceArrow* self);
-void textboxAdvanceArrow_destroy(textboxAdvanceArrow* self);
+void TextboxAdvanceArrow_entrypoint(TextboxAdvanceArrow* self);
+void TextboxAdvanceArrow_init(TextboxAdvanceArrow* self);
+void TextboxAdvanceArrow_loop(TextboxAdvanceArrow* self);
+void TextboxAdvanceArrow_destroy(TextboxAdvanceArrow* self);
 
-typedef void (*cv64_ovl_textboxadvancearrow_func_t)(textboxAdvanceArrow*);
+typedef void (*cv64_ovl_textboxadvancearrow_func_t)(TextboxAdvanceArrow*);
 
 extern const u32 TEXTBOX_ADVANCE_ARROW_DL;
 

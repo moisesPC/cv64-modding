@@ -1,0 +1,16 @@
+binary_files:
+  - name: src/static/static_segment
+    files: 
+      - "src/static/static_segment.c"
+    vram: 0x8012A520
+    rom: 0x0011BA20
+    is_ni_file: false
+
+  - name: src/objects/my_overlay
+    files: 
+      - "src/objects/obj1.c"
+      - "src/objects/obj2.c"
+    vram: 0x0F000000
+    rom: 0x000A8420
+    is_ni_file: true
+    file_id: 0x01

@@ -4,9 +4,6 @@
 *.elf
 *.o
 
-# Ignore everything in `tools/n64chain` and `tools/armips` except .gitkeep
-tools/armips/*
-!tools/armips/.gitkeep
-tools/n64chain/*
-!tools/n64chain/.gitkeep
+# Ignored directories
 build/*
+__pycache__/

@@ -52,9 +52,9 @@ typedef enum difficulty_select_state_enum {
 } difficulty_select_state_enum;
 
 typedef struct {
-    light* scroll_dowels_light;
-    light* scroll_elements_light;
-    light* lens_light;
+    FigureLight* scroll_dowels_light;
+    FigureLight* scroll_elements_light;
+    FigureLight* lens_light;
     u8 flags;
     u8 field_0x0D[3];
     Vec3f field_0x10;
@@ -85,11 +85,11 @@ typedef struct {
     };
     union {
         miniScroll* mini_scroll;
-        window_work* lens;
+        WindowWork* lens;
     };
     union {
-        mfds_state* character_names[NUM_CHARACTERS];
-        mfds_state* difficulty_text;
+        MfdsState* character_names[NUM_CHARACTERS];
+        MfdsState* difficulty_text;
     };
     u8 field_0x44[8];
     mark_work* mark;
