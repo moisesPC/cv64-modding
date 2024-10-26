@@ -38,7 +38,7 @@ def compile_binary(makefile_path):
     for source_file in files:
         object_file = f"{os.path.splitext(source_file)[0]}.o"
         subprocess.run(['mips64-elf-gcc', '-c', '-G0', '-mabi=32', '-march=vr4300', '-mtune=vr4300', 
-                        '-mfix4300', '-O2', '-fno-toplevel-reorder', '-fomit-frame-pointer', 
+                        '-mfix4300', '-O2', '-fno-toplevel-reorder', '-fomit-frame-pointer', '-std=c17', '-mlong-calls',
                         '-fno-common',  # Prevent common symbols from being created
                         *include_flags,
                         source_file, '-o', object_file])

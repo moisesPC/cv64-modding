@@ -1,26 +1,34 @@
 objects:
-  - name: my_object
-    raw_id: 0x001                  # Hexadecimal ID for the function pointer
+  - name: obj_test
+    raw_id: 0x13F
     entrypoint:
-      build/src/objects/my_overlay.bin.elf: obj1_another
-    files_info:                     # Array of file info structs
-      - { 0x1C, 0x1000000 }         # First file ID and alignment
-      - { 0x27, 0x00000040 }         # Second file ID and alignment
-    files_info_ptr: 0x5588          # ROM address where files_info data starts
+      build/src/objects/obj_test/obj_test_overlay.bin.elf: objTest_entrypoint
+    files_info:
+      - { 0xBA, 0x00001000 }
+    files_info_ptr: 0x96FB8
 
 binary_files:
-  - name: src/static/static_segment
+  - name: src/objects/obj_test/obj_test_overlay
     files: 
-      - "src/static/static_segment.c"
-    vram: 0x8012A520
-    rom: 0x0011BA20
-    is_ni_file: false
-
-  - name: src/objects/my_overlay
-    files: 
-      - "src/objects/obj1.c"
-      - "src/objects/obj2.c"
+      - "src/objects/obj_test/obj_test.c"
     vram: 0x0F000000
-    rom: 0x000A8420
+    rom: 0x00BB2D88
     is_ni_file: true
-    file_id: 0x01
+    file_id: 0xBA
+
+#binary_files:
+  #- name: src/static/static_segment
+  #  files: 
+  #    - "src/static/static_segment.c"
+  #  vram: 0x8012A520
+  #  rom: 0x0011BA20
+  #  is_ni_file: false
+
+  #- name: src/objects/my_overlay
+  #  files: 
+  #    - "src/objects/obj1.c"
+  #    - "src/objects/obj2.c"
+  #  vram: 0x0F000000
+  #  rom: 0x000A8420
+  #  is_ni_file: true
+  #  file_id: 0x01

@@ -4,9 +4,7 @@ from elftools.elf.elffile import ELFFile
 
 # Constants
 FUNCTION_POINTERS_OFFSET = 0x92E70  # Starting address for function pointers - 1
-VRAM_POINTERS_OFFSET = 0x94030       # Starting address for VRAM pointers
-FUNCTION_POINTERS_COUNT = 554         # Total number of function pointers
-FILES_INFO_PTR_OFFSET = 0x5588       # ROM address where files_info data starts
+VRAM_POINTERS_OFFSET = 0x9402C       # Starting address for VRAM pointers - 1
 
 def read_rom(filename):
     """Read the entire ROM file into a bytearray."""

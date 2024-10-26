@@ -3,10 +3,6 @@ Compress and Decompress Konami LZKN64 (a.k.a. Nagano) files
 
 Credit to @LiquidCat64 for writing this script and powering through the various challenges encountered.
 Credit to @Fluvian for the original lzkn64 C program https://github.com/Fluvian/lzkn64
-
-Prerequisites:
-pip install numpy
-pip install numba
 """
 
 import numpy as np
@@ -61,7 +57,7 @@ def compress_buffer(file_buffer, pad_zeroes=False):
     """
     Compresses the data in the buffer specified in the arguments.
     :param file_buffer:
-    :param pad_zeroes (add 0x10 padding to the file, used for music sequences in CV64):
+    :param pad_zeroes:
     :return:
     """
     # Size of the buffer to compress

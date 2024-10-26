@@ -1,6 +1,6 @@
 import yaml
 import os
-import subprocess
+import cv64_file_insert  # Import the module containing the modify_rom_data function
 
 def inject_binaries():
     with open('config.yml', 'r') as file:
@@ -17,7 +17,7 @@ def inject_binaries():
 
     for binary in binary_files:
         name = binary['name']
-        rom_address = hex(binary['rom'])  
+        rom_address = binary['rom']  # Keep this as an integer
         is_ni_file = binary['is_ni_file']
         file_id = binary.get('file_id', None)  
         
@@ -27,53 +27,39 @@ def inject_binaries():
             print(f"Binary file not found: {bin_file_path}")
             continue
         
-        print(f"Injecting into ROM at address {rom_address} using file: {bin_file_path}")  
+        print(f"Injecting into ROM at address {hex(rom_address)} using file: {bin_file_path}")  
         
         if is_ni_file:
             compress_flag = 1  
-            version = 0  
+            version = 0
 
-            # Directly modify rom_data instead of using subprocess
-            subprocess.run([
-                'python3', 'tools/cv64_file_insert.py',
-                rom_in,
-                rom_out,
-                bin_file_path,
-                rom_address[2:], 
-                hex(file_id)[2:] if file_id is not None else '0', 
-                str(compress_flag),
-                str(version)
-            ])
+            # Read the file to inject
+            with open(bin_file_path, 'rb') as f:
+                file_buffer = f.read()
+
+            # Call modify_rom_data directly
+            rom_data = cv64_file_insert.modify_rom_data(
+                romData=rom_data,
+                fileBuffer=file_buffer,
+                injectionOffset=rom_address,
+                fileID=file_id,
+                compressFlag=compress_flag,
+                version=version
+            )
+
             print(f"Injected {bin_file_path} into ROM (Nisitenma-Ichigo)")
 
-            # Read the injected data back into rom_data
-            injection_address_int = int(rom_address, 16)
-            with open(bin_file_path, 'rb') as binary_file:
-                binary_data = binary_file.read()
-            rom_data[injection_address_int:injection_address_int + len(binary_data)] = binary_data
-
         else:
-            injection_address_int = int(rom_address, 16)  
-            
             with open(bin_file_path, 'rb') as binary_file:
                 binary_data = binary_file.read()
 
             # Modify the original ROM data directly
-            rom_data[injection_address_int:injection_address_int + len(binary_data)] = binary_data
+            rom_data[rom_address:rom_address + len(binary_data)] = binary_data
 
-            print(f"Injected {bin_file_path} directly into ROM at address {rom_address}")
+            print(f"Injected {bin_file_path} directly into ROM at address {hex(rom_address)}")
 
     # Write modified data back to output ROM after all injections are done.
-    with open(rom_out, 'wb') as rom_file:  # Open in write mode
-        # Print the first 0x10 bytes of the output ROM at offset A8420 from rom_data
-        offset_to_print = 0xA8420
-        num_bytes = 0x10  # Number of bytes to read
-
-        # Print from rom_data
-        print(f"Bytes in rom_data at offset {hex(offset_to_print)}:")
-        print(' '.join(f"{rom_data[i]:02x}" for i in range(offset_to_print, offset_to_print + num_bytes)))
-
-        # Write modified data to the output ROM
+    with open(rom_out, 'wb') as rom_file:
         rom_file.write(rom_data)
 
 if __name__ == "__main__":
