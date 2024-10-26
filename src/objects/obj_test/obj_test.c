@@ -35,7 +35,7 @@ void objTest_init(objTest* self) {
 
 void objTest_loop(objTest* self) {
     if (ptr_PlayerData != NULL) {
-    // Print "Hello world" and the player's speed every 3 seconds (90 frames when the target framerate is 30FPS)
+        // Print "Hello world" and the player's speed every 3 seconds (90 frames when the target framerate is 30FPS)
         if (sys.global_timer_capped % 90 == 0) {
             osSyncPrintf("Hello world!\n");
 
