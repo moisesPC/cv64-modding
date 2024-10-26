@@ -1,3 +1,13 @@
+objects:
+  - name: my_object
+    raw_id: 0x001                  # Hexadecimal ID for the function pointer
+    entrypoint:
+      build/src/objects/my_overlay.bin.elf: obj1_another
+    files_info:                     # Array of file info structs
+      - { 0x1C, 0x1000000 }         # First file ID and alignment
+      - { 0x27, 0x00000040 }         # Second file ID and alignment
+    files_info_ptr: 0x5588          # ROM address where files_info data starts
+
 binary_files:
   - name: src/static/static_segment
     files: 
