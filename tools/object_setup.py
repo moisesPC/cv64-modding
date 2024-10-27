@@ -1,3 +1,5 @@
+# This file manages the `objects` param from the YAML
+
 import sys
 import yaml
 import struct
@@ -5,19 +7,20 @@ from elftools.elf.elffile import ELFFile
 
 # Constants
 FUNCTION_POINTERS_OFFSET = 0x92E70  # Starting address for function pointers - 1
-VRAM_POINTERS_OFFSET = 0x9402C       # Starting address for VRAM pointers - 1
+VRAM_POINTERS_OFFSET = 0x9402C      # Starting address for VRAM pointers - 1
 
 def read_rom(filename):
-    """Read the entire ROM file into a bytearray."""
     with open(filename, 'r+b') as rom_file:
         return bytearray(rom_file.read())
 
 def write_to_rom(rom_data, offset, data):
-    """Write data to the ROM at the specified offset."""
     rom_data[offset:offset + len(data)] = data
 
+# NOTE: At the moment, the ROM address specified at `files_info_ptr` can only be an address
+# inside the `main` segment. (ROM addresses going from 0x1060 to 0xA8420).
+# This is because the VRAM address is calculated automatically based on the VRAM address associated
+#to that segment (0x80000460)
 def get_vram_address(rom_address):
-    """Convert a ROM address to a VRAM address."""
     return (0x80000460 - 0x00001060) + rom_address
 
 def get_symbol_address(elf_path, symbol_name):
@@ -35,7 +38,6 @@ def get_symbol_address(elf_path, symbol_name):
         return symbols[0]['st_value']
 
 def process_config(rom_data, config_path):
-    """Process the configuration file and update the ROM data accordingly."""
     with open(config_path, 'r') as file:
         config = yaml.safe_load(file)
 
@@ -49,7 +51,6 @@ def process_config(rom_data, config_path):
         else:
             entrypoint = obj['entrypoint']
 
-        # Write entrypoint to function pointers array
         write_to_rom(rom_data,
                      FUNCTION_POINTERS_OFFSET + (raw_id * 4),
                      struct.pack('>I', entrypoint))  # Write as big-endian
@@ -62,11 +63,9 @@ def process_config(rom_data, config_path):
             if i == len(files_info) - 1:  # Last entry
                 file_id |= 0x40000000  # OR with 0x40000000
             
-            # Append file ID and alignment to raw data
             files_info_raw_data.extend(struct.pack('>I', file_id))
             files_info_raw_data.extend(struct.pack('>I', alignment))
 
-        # Write files_info struct to ROM at files_info_ptr
         files_info_ptr = obj['files_info_ptr']
         
         print(f"Files Info Pointer: {hex(files_info_ptr)}")
@@ -75,7 +74,6 @@ def process_config(rom_data, config_path):
                      files_info_ptr,
                      files_info_raw_data)
 
-        # Convert files_info_ptr to VRAM address and write it to VRAM pointers array
         vram_address = get_vram_address(files_info_ptr)
         
         print(f"VRAM Address for ID {raw_id}: {hex(vram_address)}")

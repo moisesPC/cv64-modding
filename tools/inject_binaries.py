@@ -1,3 +1,6 @@
+# This file handles injecting binary files (after they're compiled, linked and stripped-out)
+# into the output ROM
+
 import sys
 import yaml
 import os

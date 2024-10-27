@@ -1,3 +1,5 @@
+# This file handles injecting Nisintema-Ichigo files into the ROM
+
 import sys
 from liblzkn64 import compress_buffer
 

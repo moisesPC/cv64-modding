@@ -1,5 +1,4 @@
-/********** This file contains the VRAM addresses of different functions and data **********/
-/********** found in the game                                                     **********/
+/* VRAM addresses for extern references in the assembly code */
 
 .ifndef _EXTERN_ASM_
 .definelabel _EXTERN_ASM_, 1

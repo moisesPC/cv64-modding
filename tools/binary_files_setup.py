@@ -1,7 +1,10 @@
+# This file does an initial YAML parsing to `binary_files` in order to setup the temporary Makefiles 
+# that will allow the binaries to be compiled wwith the specified parameters.
+
 import yaml
 import os
 
-def parse_yaml():
+def binary_files_setup():
     with open('config.yml', 'r') as file:
         config = yaml.safe_load(file)
     
@@ -21,4 +24,4 @@ def parse_yaml():
             makefile.write(f"OUTPUT = {os.path.join(output_dir, os.path.basename(name))}.bin\n")
 
 if __name__ == "__main__":
-    parse_yaml()
+    binary_files_setup()

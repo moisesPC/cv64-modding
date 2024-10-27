@@ -1,3 +1,5 @@
+# This file manages the `maps` param from the YAML
+
 import sys
 import os
 import yaml
@@ -110,7 +112,6 @@ def main():
                 rom_file.seek(MUSIC_ID_ARRAY_OFFSET + (map_id * 2))  # Each music ID is 2 bytes
                 rom_file.write(music_id.to_bytes(2, byteorder='big'))
 
-            # Inject file_buffer_extra_size into the array
             file_buffer_extra_size_raw = map_entry.get('file_buffer_extra_size')
             if isinstance(file_buffer_extra_size_raw, str):
                 file_buffer_extra_size = int(file_buffer_extra_size_raw, 16)

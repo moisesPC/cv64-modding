@@ -8,10 +8,10 @@ INPUT_ROM  := cv64.z64
 OUTPUT_ROM := cv64_mod.z64
 CONFIG_YML := config.yml
 
-all: parse_yaml compile_binaries inject_asm inject_binaries maps_setup object_setup calcchecksum
+all: binary_files_setup compile_binaries inject_asm inject_binaries maps_setup object_setup calcchecksum
 
-parse_yaml:
-	$(PYTHON) tools/parse_yaml.py
+binary_files_setup:
+	$(PYTHON) tools/binary_files_setup.py
 
 compile_binaries:
 	$(PYTHON) tools/compile_binaries.py

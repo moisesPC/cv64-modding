@@ -45,7 +45,7 @@ load_custom_segment:
 .org 0x80015390
     jal customSegment_loop
 
-/******************** Custom segment ********************/
+/******************** Custom static segment ********************/
 
 .headersize SEC_STATIC_HEADERSIZE
 .org SEC_STATIC_RAM

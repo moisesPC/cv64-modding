@@ -1,3 +1,5 @@
+/* VRAM addresses for `extern`'d symbols in the C code */
+
 PROVIDE(ni_6F3BD0_VRAM = 0x03000000);
 PROVIDE(ni_6F3BD0_bin = 0x03000000);
 PROVIDE(ni_6F3BD0_DATA_END = 0x030003b0);
