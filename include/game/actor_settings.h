@@ -33,4 +33,6 @@ typedef struct ActorConfig {
     };
 } ActorConfig;
 
+#define END_ACTOR_LIST {{   0, 0,    0},   0xFFFF,   0,  0,  0,  0x80, 00}
+
 #endif

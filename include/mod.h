@@ -9,5 +9,6 @@
 #include "cv64.h"
 
 s32 insideGameplay();
+s32 expansionPakInstalled();
 
 #endif

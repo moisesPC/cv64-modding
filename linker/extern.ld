@@ -11448,3 +11448,4 @@ PROVIDE(soundfonts_tbl_VRAM_END = 0x808ca1a0);
 PROVIDE(_binary__home_a_cv64_assets_sequences_bin_end = 0x808e66a0);
 PROVIDE(sequences_DATA_END = 0x808e66a0);
 PROVIDE(sequences_VRAM_END = 0x808e66a0);
+PROVIDE(osMemSize = 0x80000318);

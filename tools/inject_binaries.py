@@ -8,11 +8,10 @@ def inject_binaries():
     
     binary_files = config.get('binary_files', [])
     
-    rom_in = 'cv64.z64'  
     rom_out = 'output_mod.z64'  
 
     # Read the original ROM data
-    with open(rom_in, 'rb') as rom_file:
+    with open(rom_out, 'rb') as rom_file:
         rom_data = bytearray(rom_file.read())
 
     for binary in binary_files:

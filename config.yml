@@ -1,34 +1,43 @@
 objects:
   - name: obj_test
-    raw_id: 0x13F
+    raw_id: 0x1F
     entrypoint:
       build/src/objects/obj_test/obj_test_overlay.bin.elf: objTest_entrypoint
     files_info:
-      - { 0xBA, 0x00001000 }
-    files_info_ptr: 0x96FB8
+      - { 0x09, 0x00001000 }
+    files_info_ptr: 0xA3CA0
 
 binary_files:
+  - name: src/static/static_segment
+    files: 
+      - "src/static/static_segment.c"
+    vram: 0x803FB270  # SEC_STATIC_RAM
+    rom: 0x00BB2D88   # SEC_STATIC_ROM
+    is_ni_file: false
+
   - name: src/objects/obj_test/obj_test_overlay
     files: 
       - "src/objects/obj_test/obj_test.c"
     vram: 0x0F000000
-    rom: 0x00BB2D88
+    rom: 0x00705DCE
     is_ni_file: true
-    file_id: 0xBA
+    file_id: 0x09
 
-#binary_files:
-  #- name: src/static/static_segment
-  #  files: 
-  #    - "src/static/static_segment.c"
-  #  vram: 0x8012A520
-  #  rom: 0x0011BA20
-  #  is_ni_file: false
+  - name: assets/custom_test_grid/custom_test_grid
+    files: 
+      - "assets/custom_test_grid/custom_test_grid.c"
+    vram: 0x06000000
+    rom: 0x00BB3500
+    is_ni_file: true
+    file_id: 0x5C
 
-  #- name: src/objects/my_overlay
-  #  files: 
-  #    - "src/objects/obj1.c"
-  #    - "src/objects/obj2.c"
-  #  vram: 0x0F000000
-  #  rom: 0x000A8420
-  #  is_ni_file: true
-  #  file_id: 0x01
+maps:
+  - name: build/assets/custom_test_grid/custom_test_grid
+    id: 0x1D
+    file_id: 0x5C
+    assets_file_elf: build/assets/custom_test_grid/custom_test_grid.bin.elf
+    actor_list: actor_list
+    music_id: 0x00 # TODO. Implement.
+    has_skybox: false
+    load_pickable_item_assets: true
+    file_buffer_extra_size: 0x1800  # TODO. Implement. Extra size for the ma's allocated size. See 0x801852E0

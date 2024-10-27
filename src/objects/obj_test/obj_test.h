@@ -9,7 +9,9 @@
 
 #include "object.h"
 
-// ID: 0x213F (replaces the vanilla game's `object_213F`)
+#define MOD_OBJ_TEST OBJECT_ID(OBJ_KIND_MAP_OVERLAY, 0x01F)
+
+// ID: 0x201F (replaces the vanilla game's object 0x001F, which is unused)
 typedef struct {
     ObjectHeader header;
     u8 field_0x20[OBJECT_SIZE - 0x20];

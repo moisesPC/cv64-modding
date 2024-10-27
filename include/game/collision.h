@@ -8,6 +8,12 @@
 #define COLL_TYPE_WALL    2
 #define COLL_TYPE_CEILING 4 // Officially known as "TOP"
 
+#define COLL_TYPE_FLOOR_FULL_WORD     0x00010000
+#define COLL_TYPE_WALL_FULL_WORD      0x00020000
+#define COLL_TYPE_CEILING_FULL_WORD   0x00040000
+
+#define FOOTSTEP_SFX_STONE     0x00000001
+
 typedef struct CollisionTri {
     union {
         u8 type;
