@@ -19,7 +19,7 @@ binary_files:
     files: 
       - "src/objects/obj_test/obj_test.c"
     vram: 0x0F000000
-    rom: 0x00705DCE
+    follows-rom: src/static/static_segment
     is_ni_file: true
     file_id: 0x09
 
@@ -27,7 +27,8 @@ binary_files:
     files: 
       - "assets/custom_test_grid/custom_test_grid.c"
     vram: 0x06000000
-    rom: 0x00BB3500
+    #rom: 0x00BB3500
+    follows-rom: src/objects/obj_test/obj_test_overlay
     is_ni_file: true
     file_id: 0x5C
 
