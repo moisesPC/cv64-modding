@@ -1,3 +1,4 @@
+import sys
 import yaml
 import struct
 from elftools.elf.elffile import ELFFile
@@ -88,8 +89,8 @@ def process_config(rom_data, config_path):
                      struct.pack('>I', vram_address))  # Write as big-endian
 
 def main():
-    rom_filename = 'output_mod.z64'
-    config_filename = 'config.yml'
+    rom_filename = sys.argv[1]
+    config_filename = sys.argv[2]
 
     rom_data = read_rom(rom_filename)
     process_config(rom_data, config_filename)

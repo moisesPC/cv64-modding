@@ -1,3 +1,4 @@
+import sys
 import yaml
 import os
 import cv64_file_insert  # Import the module containing the modify_rom_data function
@@ -8,7 +9,7 @@ def inject_binaries():
     
     binary_files = config.get('binary_files', [])
     
-    rom_out = 'output_mod.z64'  
+    rom_out = sys.argv[1]
 
     # Read the original ROM data
     with open(rom_out, 'rb') as rom_file:

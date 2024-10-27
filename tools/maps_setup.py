@@ -1,9 +1,10 @@
+import sys
 import os
 import yaml
 import subprocess
 
 # Constants
-ROM_PATH = "output_mod.z64"
+ROM_PATH = sys.argv[1]
 ACTOR_LIST_POINTERS_OFFSET = 0x10D978  # Offset in ROM for actor list pointers
 MAP_FILE_INFO_OFFSET = 0x104B60  # Offset in ROM for map_file_info array
 MAP_FILE_INFO_SIZE = 12  # Size of map_file_info struct (4 + 4 + 2 + 1 + 1)

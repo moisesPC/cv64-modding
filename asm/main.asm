@@ -2,7 +2,7 @@
 .include "asm/sections.asm"
 
 .n64
-.open "cv64.z64", "output_mod.z64", 0x0
+.open INPUTROM, OUTPUTROM, 0x0
 
 /******************** Custom segment loader ********************/
 
