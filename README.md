@@ -47,9 +47,12 @@ pip install numba
 ## Building
 Place a Castlevania 64 (USA v1.0) ROM in the root of the repository, and name it `cv64.z64`.
 
-Then, write `make` to build the output ROM, and `make clean` to clean the build artifacts.
+Then, write `make` to build the output ROM. The output ROM will be named `cv64_mod.z64` and it will be placed in the root of the repository.
 
 The names of the input and output ROMs can be modified in the `Makefile`.
+
+### Cleaning
+You can run `make clean` to clean the build artifacts and the output ROM.
 
 ## Documentation
 Documentation for this project can be found [here](docs/index.md).
