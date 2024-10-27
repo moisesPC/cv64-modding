@@ -7,3 +7,4 @@
 # Ignored directories
 build/*
 __pycache__/
+.vscode/
