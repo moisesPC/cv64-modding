@@ -132,7 +132,7 @@ This is the file ID in the Nisitenma-Ichigo table, assuming that `is_ni_file` is
 ### dont_compile
 If set to `true`, the file won't be compiled, and will just be injected into the ROM.
 
-## binary_files
+## maps
 Changes the settings associated to the game's maps.
 
 ### Example
