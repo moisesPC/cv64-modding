@@ -40,7 +40,9 @@ void objTest_loop(objTest* self) {
             osSyncPrintf("Hello world!\n");
 
             Vec3f* player_speed_vector = &ptr_PlayerData->speed;
-            f32 player_speed_XYZ = sqrtf(player_speed_vector->x * player_speed_vector->x + player_speed_vector->y * player_speed_vector->y + player_speed_vector->z * player_speed_vector->z);
+            f32 player_speed_XYZ = sqrtf(player_speed_vector->x * player_speed_vector->x +
+                                         player_speed_vector->y * player_speed_vector->y +
+                                         player_speed_vector->z * player_speed_vector->z);
             osSyncPrintf("Player's XYZ speed: %.4f\n\n", player_speed_XYZ);
         }
     }

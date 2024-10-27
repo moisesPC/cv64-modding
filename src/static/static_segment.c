@@ -2,6 +2,7 @@
 
 #include <ultra64.h>
 #include "objects/player/player.h"
+#include "crash_screen.h"
 #include "objects/engine/GameStateMgr.h"
 #include "system_work.h"
 

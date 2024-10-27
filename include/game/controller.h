@@ -21,4 +21,6 @@ typedef struct Controller {
 extern OSMesgQueue controllerMsgQ;
 extern OSContStatus controller_status[MAXCONTROLLERS];
 
+extern void controller_readData();
+
 #endif
