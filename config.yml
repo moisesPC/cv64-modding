@@ -37,7 +37,7 @@ maps:
     file_id: 0x5C
     assets_file_elf: build/assets/custom_test_grid/custom_test_grid.bin.elf
     actor_list: actor_list
-    music_id: 0x00 # TODO. Implement.
+    music_id: 0x11
     has_skybox: false
     load_pickable_item_assets: true
-    file_buffer_extra_size: 0x1800  # TODO. Implement. Extra size for the ma's allocated size. See 0x801852E0
+    file_buffer_extra_size: 0x1800

@@ -8,6 +8,8 @@ ROM_PATH = sys.argv[1]
 ACTOR_LIST_POINTERS_OFFSET = 0x10D978  # Offset in ROM for actor list pointers
 MAP_FILE_INFO_OFFSET = 0x104B60  # Offset in ROM for map_file_info array
 MAP_FILE_INFO_SIZE = 12  # Size of map_file_info struct (4 + 4 + 2 + 1 + 1)
+MUSIC_ID_ARRAY_OFFSET = 0x97200  # Offset for music ID array
+FILE_BUFFER_EXTRA_SIZE_ARRAY_OFFSET = 0x1084D0  # Offset for file buffer extra size array
 
 def get_vram_address_from_elf(elf_path, symbol_name):
     """Retrieve VRAM address from an ELF file using readelf."""
@@ -78,7 +80,7 @@ def main():
         elif isinstance(map_file_id_raw, int):
             file_id = map_file_id_raw  # Already an int, no conversion needed
         else:
-            raise ValueError(f"Unexpected type for 'id': {type(map_file_id_raw)}")
+            raise ValueError(f"Unexpected type for 'file_id': {type(map_file_id_raw)}")
 
         actor_list_symbol = map_entry.get('actor_list')
         load_pickable_item_assets = map_entry.get('load_pickable_item_assets', False)
@@ -93,10 +95,37 @@ def main():
             print(f"Injecting VRAM address {hex(actor_list_vram_start)} for actor list '{actor_list_symbol}' in map '{name}' (ID: {hex(map_id)})")
             inject_vram_address_into_rom(actor_list_vram_start, map_id)
 
-            vram_file_end = 0x06000000 | os.path.getsize(bin_path)
+            vram_file_end = (0x06000000 | os.path.getsize(bin_path))  # OR with the size of the binary file
             
+            # Inject music ID into the music ID array
+            music_id_raw = map_entry.get('music_id')
+            if isinstance(music_id_raw, str):
+                music_id = int(music_id_raw, 16)  # Convert hex string to int
+            elif isinstance(music_id_raw, int):
+                music_id = music_id_raw
+            else:
+                raise ValueError(f"Unexpected type for 'music_id': {type(music_id_raw)}")
+
+            with open(ROM_PATH, 'r+b') as rom_file:
+                rom_file.seek(MUSIC_ID_ARRAY_OFFSET + (map_id * 2))  # Each music ID is 2 bytes
+                rom_file.write(music_id.to_bytes(2, byteorder='big'))
+
+            # Inject file_buffer_extra_size into the array
+            file_buffer_extra_size_raw = map_entry.get('file_buffer_extra_size')
+            if isinstance(file_buffer_extra_size_raw, str):
+                file_buffer_extra_size = int(file_buffer_extra_size_raw, 16)
+            elif isinstance(file_buffer_extra_size_raw, int):
+                file_buffer_extra_size = file_buffer_extra_size_raw
+            else:
+                raise ValueError(f"Unexpected type for 'file_buffer_extra_size': {type(file_buffer_extra_size_raw)}")
+
+            with open(ROM_PATH, 'r+b') as rom_file:
+                rom_file.seek(FILE_BUFFER_EXTRA_SIZE_ARRAY_OFFSET + (map_id * 4))  # Each extra size entry is 4 bytes
+                rom_file.write(file_buffer_extra_size.to_bytes(4, byteorder='big'))
+
             print(f"Writing map info for '{name}' (ID: {hex(map_id)}) to ROM.")
             write_map_info_to_rom(map_id, file_id, vram_file_end, load_pickable_item_assets, has_skybox)
+            
         else:
             print(f"Could not find symbol '{actor_list_symbol}' in '{elf_path}'")
 

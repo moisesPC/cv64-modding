@@ -5,7 +5,7 @@ ARMIPS = armips
 BUILD_DIR = build
 
 INPUT_ROM  := cv64.z64
-OUTPUT_ROM := output_mod.z64
+OUTPUT_ROM := cv64_mod.z64
 CONFIG_YML := config.yml
 
 all: parse_yaml compile_binaries inject_asm inject_binaries maps_setup object_setup calcchecksum
