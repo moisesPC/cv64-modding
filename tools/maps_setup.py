@@ -60,7 +60,7 @@ def write_map_info_to_rom(map_id, file_id, vram_file_end, load_pickable_item_ass
         rom_file.write(data_to_write)
 
 def main():
-    with open('config.yml', 'r') as yml_file:
+    with open(sys.argv[2], 'r') as yml_file:
         config = yaml.safe_load(yml_file)
 
     for map_entry in config.get('maps', []):

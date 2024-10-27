@@ -50,3 +50,6 @@ Place a Castlevania 64 (USA v1.0) ROM in the root of the repository, and name it
 Then, write `make` to build the output ROM, and `make clean` to clean the build artifacts.
 
 The names of the input and output ROMs can be modified in the `Makefile`.
+
+## Documentation
+Documentation for this project can be found [here](docs/index.md).

@@ -20,7 +20,7 @@ def calculate_address(binary_files, current_binary, address_type, processed_file
     return current_binary.get(address_type)
 
 def inject_binaries():
-    with open('config.yml', 'r') as file:
+    with open(sys.argv[2], 'r') as file:
         config = yaml.safe_load(file)
     
     binary_files = config.get('binary_files', [])

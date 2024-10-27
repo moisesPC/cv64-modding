@@ -3,6 +3,7 @@
 
 import os
 import subprocess
+import shutil
 
 # Program names
 GCC = 'mips64-elf-gcc'
@@ -44,6 +45,13 @@ def compile_binary(makefile_path):
     vram = hex(vram_decimal)
     files = variables['FILES'].split()
     output = variables['OUTPUT']
+    dont_compile = variables['DONT_COMPILE'] == '1'
+
+    if dont_compile:
+        # If dont_compile is true, just copy the first file to the output
+        shutil.copy(files[0], output)
+        print(f"Copied {files[0]} to {output}")
+        return
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     linker_ld_path = os.path.join(script_dir, '..', 'linker', 'linker.ld')
